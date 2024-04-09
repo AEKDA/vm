@@ -1,3 +1,6 @@
+import util
+
+
 def f(x: float) -> float:
     return -2 * x**3 - 4 * x**2 + 8 * x - 4
 
@@ -37,14 +40,22 @@ def simpson(f, a: float, b: float, n) -> float:
 
 
 def calc(method, a, b, n, eps):
+    header = ["value"]
+    ans = []
+
     k = method["k"]
     start = method["f"](f, a, b, n)
+
+    ans.append([start])
+
     while True:
         n *= 2
         val = method["f"](f, a, b, n)
         if abs(val - start) / (2**k - 1) < eps:
+            util.print_table(data=ans, headers=header)
             return val, n
         start = val
+        ans.append([start])
 
 
 methods = [
