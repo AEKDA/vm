@@ -19,6 +19,13 @@ def check_norma(A: np.ndarray[np.float64]):
 def norma(A: np.ndarray[np.float64]):
     return max([sum(abs(row)) for row in A])
 
+def norma_all(A: np.ndarray[np.float64]):
+    tmp = 0
+    for v in A:
+        for item in v:
+            tmp += item*item
+    return np.sqrt(tmp)
+
 
 def sort_diagonal_predominance(A: np.ndarray[np.float64]):
     indeces = []

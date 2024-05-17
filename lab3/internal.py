@@ -40,19 +40,20 @@ def simpson(f, a: float, b: float, n) -> float:
 
 
 def calc(func, method, a, b, n, eps):
-    header = ["value"]
+    header = ["n", "value", "run"]
     ans = []
 
     k = method["k"]
     start = method["f"](func, a, b, n)
 
-    ans.append([start])
+    ans.append([n, start])
 
     while True:
         n *= 2
         val = method["f"](func, a, b, n)
+        ans.append([n, val])
+        print(abs(val - start) / (2**k - 1))
         if abs(val - start) / (2**k - 1) < eps:
             util.print_table(data=ans, headers=header)
             return val, n
         start = val
-        ans.append([start])

@@ -30,8 +30,11 @@ def run():
 
     try:
         A = internal.sort_diagonal_predominance(matrix[:, :-1])
+        print("Матрица с диагональным преобладанием")
+        util.print_table(A)
     except ValueError as e:
         print(f"{e}")
+
 
     C, D = internal.make_C_and_D_matrix(A, matrix[:, -1:])
 
@@ -39,7 +42,8 @@ def run():
     util.print_table(C)
     print("Вектор D:")
     util.print_table(D)
-    print(f"Норма матрицы C: {internal.norma(C)} < 1 = {internal.check_norma(C)}")
+    # print(f"Норма матрицы C: {internal.norma(C)} < 1 = {internal.check_norma(C)}")
+    print(f"Норма матрицы C: {internal.norma_all(C)} < 1 = {internal.check_norma(C)}")
 
     res, headers = internal.iterational_method(C, D, accuracy, 20)
 
