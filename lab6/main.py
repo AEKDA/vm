@@ -12,12 +12,8 @@ funcs = [
         "f": lambda x, y: y + (1 + x) * y**2,
     },
     {
-        "str": "y'=x^2+y",
-        "f": lambda x, y: x * x + y,
-    },
-    {
-        "str": "y'=sin(x)*y",
-        "f": lambda x, y: np.sin(x) * y,
+        "str": "y'x^2 * y",
+        "f": lambda x, y: x**2 * y,
     },
 ]
 
@@ -49,13 +45,14 @@ if __name__ == "__main__":
         sep="\n",
     )
     print("Усов метод Эйлера", tabulate(upgraded_euler, headers=["X", "Y"]), sep="\n")
+
     print(
         "Метод Адамса",
         tabulate(
             list(
                 map(
                     lambda x: [x[0][0], x[0][1], x[1]],
-                    zip(adams, list(map(lambda x: x[1], real))),
+                    list(zip(adams, real)),
                 )
             ),
             headers=["X", "Y", "Реальное значение Y"],

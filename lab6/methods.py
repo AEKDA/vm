@@ -22,8 +22,6 @@ def upgraded_euler(f, a, b, y0, h):
 
 def adams(f, a, b, y0, h):
     n = int((b - a) / h)
-    # b0 = min(b, a + 3 * h)
-    # dots = euler(f, a, b0, y0, h)
     dots = euler(f, a, b, y0, h)
     while len(dots) < 4:
         h /= 2

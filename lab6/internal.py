@@ -28,8 +28,7 @@ def one_step(func, method, x1, x2, y0, h, eps, accuracy, stepCount=100):
 
 
 def find_real_val(f, x_arr, y0):
-    print(f, y0, x_arr)
-    y = odeint(f, y0, x_arr)
+    y = odeint(lambda x, y: f(y, x), y0, x_arr)
     return y
 
 
@@ -37,6 +36,6 @@ def multistep(func, method, x1, x2, y0, h, eps):
     f = func["f"]
     ans = method(f, x1, x2, y0, h)
 
-    real_vals = [f"{i[0]:.6f}" for i in find_real_val(f, [i[0] for i in ans], y0)]
+    real_vals = [i[0] for i in find_real_val(f, [i[0] for i in ans], y0)]
 
     return ans, real_vals, h
