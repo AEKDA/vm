@@ -22,7 +22,7 @@ methods = [
     {"name": "Трапеции", "k": 2, "f": internal.trapeze},
     {"name": "Симпсона", "k": 4, "f": internal.simpson},
 ]
-funcs = [``
+funcs = [
     {"name": "-2 * x**3 - 4 * x**2 + 8 * x - 4", "f": f1},
     {"name": "-(x**3) - x**2 + 2 * x + 1", "f": f2},
     {"name": "2 * x**3 - 2 * x**2 + 7 * x - 14", "f": f3},
@@ -49,10 +49,10 @@ if __name__ == "__main__":
 
     a, b = map(int, input("Введите промежуток a и b через пробел: ").split(" "))
 
-    util.print_chart(func["f"], a - 5, b + 5)
+    # util.print_chart(func["f"], a - 5, b + 5)
 
-    n = 4
-    eps = 0.0001
+    n = 10
+    eps = 0.01
     # eps = float(input("Введите eps: "))
 
     ans = internal.calc(func["f"], method, a, b, n, eps)

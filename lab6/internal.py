@@ -5,10 +5,10 @@ def check(ans, ans_new, eps, accuracy):
     for i in range(len(ans)):
         if i * 2 < len(ans_new):
             accur = abs(ans[i][1] - ans_new[i * 2][1]) / (2**accuracy - 1)
-            if accur < eps:
-                print(f"точность: {accur}")
-                return True
-    return False
+            if accur > eps:
+                return False
+    print(f"точность: {accur}")
+    return True
 
 
 def one_step(func, method, x1, x2, y0, h, eps, accuracy, stepCount=100):
@@ -32,10 +32,30 @@ def find_real_val(f, x_arr, y0):
     return y
 
 
-def multistep(func, method, x1, x2, y0, h, eps):
+# def multistep(func, method, x1, x2, y0, h, eps):
+#     f = func["f"]
+#     ans = method(f, x1, x2, y0, h)
+
+#     real_vals = [i[0] for i in find_real_val(f, [i[0] for i in ans], y0)]
+
+#     return ans, real_vals, h
+
+
+def multistep(func, method, x1, x2, y0, h, eps, stepCount=100):
     f = func["f"]
-    ans = method(f, x1, x2, y0, h)
 
-    real_vals = [i[0] for i in find_real_val(f, [i[0] for i in ans], y0)]
+    for _ in range(stepCount):
+        ans = method(f, x1, x2, y0, h)
+        real_vals = [i[0] for i in find_real_val(f, [i[0] for i in ans], y0)]
+        flag = False
+        for i in range(len(real_vals)):
+            if abs(real_vals[i] - ans[i][1]) > eps:
+                flag = True
+                break
 
+        if not flag:
+            break
+
+        h /= 2
+        
     return ans, real_vals, h

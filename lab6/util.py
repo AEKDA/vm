@@ -5,14 +5,14 @@ def plot(real, euler, upgraded_euler, adams):
     plt.figure(figsize=(12, 8))
 
     real_x, real_y = [x[0] for x in adams], real
-    plt.plot(real_x, real_y, label="True Values", linewidth=3, marker="d", markersize=2)
+    plt.plot(real_x, real_y, label="True Values", linewidth=2, marker="d", markersize=1)
 
     euler_x, euler_y = list(map(lambda x: x[0], euler)), list(
         map(lambda x: x[1], euler)
     )
 
     plt.plot(
-        euler_x, euler_y, label="Euler's Method", linewidth=1, marker="o", markersize=2
+        euler_x, euler_y, label="Euler's Method", linewidth=1, marker="o", markersize=1
     )
 
     upgraded_euler_x, upgraded_euler_y = list(

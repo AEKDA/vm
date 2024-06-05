@@ -50,6 +50,7 @@ def newton_forward_interpolation(x, y, x_cur):
     i = 0
     n = len(x) - 1
     t = (x_cur - x[i]) / (x[1] - x[0])
+    print(f"t = {t}")
     return y[i] + sum(
         np.prod([t - j for j in range(k)]) / math.factorial(k) * coef(y, k - 1, i)
         for k in range(1, n - i + 1)
@@ -59,6 +60,7 @@ def newton_forward_interpolation(x, y, x_cur):
 def newton_backward_interpolation(x, y, x_cur):
     n = len(x) - 1
     t = (x_cur - x[n]) / (x[1] - x[0])
+    print(f"t = {t}")
     return y[n] + sum(
         np.prod([t + j for j in range(k)]) / math.factorial(k) * coef(y, k - 1, n - k)
         for k in range(1, n + 1)
@@ -67,7 +69,7 @@ def newton_backward_interpolation(x, y, x_cur):
 
 def interpolate_newton_equal_diff(x, y, x_cur):
 
-    if x_cur > int((x[-1] + x[0]) / 2):
+    if x_cur > (x[-1] + x[0]) / 2:
         print("интерполяция назад")
         return newton_backward_interpolation(x, y, x_cur), newton_backward_interpolation
     else:

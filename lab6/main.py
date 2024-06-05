@@ -8,12 +8,16 @@ import util
 
 funcs = [
     {
-        "str": "y'=y + (1 + x) * y^2",
+        "str": "y' = y + (1 + x) * y^2",
         "f": lambda x, y: y + (1 + x) * y**2,
     },
     {
-        "str": "y'x^2 * y",
+        "str": "y' = x^2 * y",
         "f": lambda x, y: x**2 * y,
+    },
+    {
+        "str": "y' = 3 * x ** 2 * y + x^2 * exp(x^3)",
+        "f": lambda x, y: 3 * x**2 * y + x**2 * np.exp(x**3),
     },
 ]
 
@@ -24,7 +28,7 @@ if __name__ == "__main__":
 
         x1, x2 = map(
             lambda x: float(x.strip()),
-            input("Введите интервал дифференцирования x1 x2 через пробел: ").split(" "),
+            input("Введите интервал дифференцирования a b через пробел: ").split(" "),
         )
         y0 = float(input(f"Введите y({x1}): "))
         h = float(input(f"Введите шаг h: "))
@@ -32,12 +36,12 @@ if __name__ == "__main__":
     except:
         print("Не корректный ввод")
         exit(-1)
+    euler, h1 = internal.one_step(func, methods.euler, x1, x2, y0, h, eps, 1)
 
-    euler, _ = internal.one_step(func, methods.euler, x1, x2, y0, h, eps, 1)
-    upgraded_euler, _ = internal.one_step(
+    upgraded_euler, h2 = internal.one_step(
         func, methods.upgraded_euler, x1, x2, y0, h, eps, 2
     )
-    adams, real, _ = internal.multistep(func, methods.adams, x1, x2, y0, h, eps)
+    adams, real, h3 = internal.multistep(func, methods.adams, x1, x2, y0, h, eps)
 
     print(
         "Метод Эйлера",
@@ -59,5 +63,8 @@ if __name__ == "__main__":
         ),
         sep="\n",
     )
+    print(f"Итоговый шаг для метода эйлера {h1}")
+    print(f"Итоговый шаг для модернизированного метода эйлера {h2}")
+    print(f"Итоговый шаг для метода Адамса {h3}")
 
     util.plot(real, euler, upgraded_euler, adams)

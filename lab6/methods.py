@@ -22,10 +22,10 @@ def upgraded_euler(f, a, b, y0, h):
 
 def adams(f, a, b, y0, h):
     n = int((b - a) / h)
-    dots = euler(f, a, b, y0, h)
+    dots = upgraded_euler(f, a, b, y0, h)
     while len(dots) < 4:
         h /= 2
-        dots = euler(f, a, b, y0, h)
+        dots = upgraded_euler(f, a, b, y0, h)
     dots = dots[:4]
 
     for i in range(4, n + 1):
